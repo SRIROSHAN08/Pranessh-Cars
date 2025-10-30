@@ -1,0 +1,1189 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+<style>
+  :root {
+    --deep-1: #0a2540;
+    --muted: #6b7280;
+    --card-bg: #ffffff;
+    --page-bg: #f3f7f8;
+    --radius: 18px;
+  }
+
+  body {
+    font-family: 'Poppins', system-ui, -apple-system, "Helvetica Neue", Arial;
+    background: var(--page-bg);
+    color: var(--deep-1);
+    margin: 0;
+  }
+
+  /* --- Hero Banner --- */
+  .hero-banner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .hero-banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-banner img {
+      height: 380px;
+      object-position: center;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-banner img {
+      height: 280px;
+      object-position: center;
+    }
+  }
+
+  @media (max-width: 380px) {
+    .hero-banner img {
+      height: 220px;
+    }
+  }
+
+  /* --- Rest of your page --- */
+  .hero {
+    background: linear-gradient(180deg, rgba(230, 245, 249, 1) 0%, rgba(210, 233, 239, 1) 60%);
+    padding: 60px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .hero-inner {
+    width: min(1200px, 96%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .hero-title {
+    max-width: 600px;
+  }
+
+  .hero-title h1 {
+    font-size: 2.5rem;
+    color: #0a2540;
+    font-weight: 700;
+    margin-bottom: 14px;
+    line-height: 1.3;
+  }
+
+  .hero-title p {
+    color: #4a5568;
+    font-size: 1.05rem;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 14px;
+  }
+
+  .btn-primary {
+    background-color: #0078ff;
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .btn-primary:hover {
+    background-color: #005fcc;
+  }
+
+  .btn-secondary {
+    background-color: #ffffff;
+    color: #0078ff;
+    border: 2px solid #0078ff;
+    padding: 12px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background-color: #0078ff;
+    color: #fff;
+  }
+
+  .hero-image img {
+    width: 480px;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 992px) {
+    .hero-inner {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .hero-title h1 {
+      font-size: 2rem;
+    }
+
+    .hero-buttons {
+      justify-content: center;
+    }
+
+    .hero-image img {
+      width: 90%;
+      margin-top: 24px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .hero {
+      padding: 50px 10px;
+    }
+
+    .hero-title h1 {
+      font-size: 1.8rem;
+    }
+
+    .hero-title p {
+      font-size: 0.95rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      padding: 10px 22px;
+    }
+  }
+
+
+  .gallery-wrapper {
+    width: min(1200px, 96%);
+    margin: 28px auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 26px;
+  }
+
+  .car-card {
+    background: var(--card-bg);
+    border-radius: var(--radius);
+    box-shadow: 0 10px 30px rgba(13, 40, 74, 0.06);
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    overflow: hidden;
+  }
+
+  .carousel {
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #f6fafc;
+    min-height: 180px;
+  }
+
+  .slides {
+    display: flex;
+    transition: transform 350ms cubic-bezier(.2, .9, .28, 1);
+  }
+
+  .slide {
+    min-width: 100%;
+  }
+
+  .slide img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+
+  @media (max-width: 640px) {
+    .hero {
+      padding: 22px 12px;
+    }
+
+    .hero-title h1 {
+      font-size: 1.4rem;
+    }
+
+    .slide img {
+      height: 160px;
+    }
+  }
+
+  .why-choose-us {
+    background: linear-gradient(to right, #e3f2f9, #ffffff);
+    padding: 80px 20px;
+    text-align: center;
+  }
+
+  .why-choose-us .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .why-choose-us h2 {
+    font-size: 2.2rem;
+    color: #0a2540;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .why-choose-us .subtitle {
+    color: #555;
+    font-size: 1.1rem;
+    margin-bottom: 50px;
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 30px;
+  }
+
+  .feature {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px 20px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .feature:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+  }
+
+  .feature img {
+    width: 70px;
+    margin-bottom: 20px;
+  }
+
+  .feature h3 {
+    color: #0a2540;
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
+
+  .feature p {
+    color: #666;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* Responsive Styles */
+  @media (max-width: 992px) {
+    .features {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .why-choose-us {
+      padding: 60px 10px;
+    }
+
+    .why-choose-us h2 {
+      font-size: 1.8rem;
+    }
+
+    .features {
+      grid-template-columns: 1fr;
+      gap: 25px;
+    }
+
+    .feature {
+      padding: 25px 15px;
+    }
+  }
+
+  .image-gallery {
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 12px 0;
+    /* Use webkit scrollbar styling for better cross-browser support */
+    scroll-behavior: smooth;
+    /* Hide default scrollbar */
+    overscroll-behavior: contain;
+    -ms-overflow-style: none;
+    /* IE and Edge */
+  }
+
+  /* Apply Firefox-only scrollbar rule only when supported */
+  @supports (scrollbar-width: none) {
+    .image-gallery {
+      scrollbar-width: none;
+      /* Firefox */
+    }
+  }
+
+  .image-gallery::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .image-gallery::-webkit-scrollbar-thumb {
+    background: #bbb;
+    border-radius: 4px;
+  }
+
+  .image-gallery::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .image-item {
+    flex: 0 0 auto;
+    scroll-snap-align: center;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+
+  .image-item:hover {
+    transform: scale(1.03);
+  }
+
+  .image-item img {
+    width: 280px;
+    height: 180px;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* 🌐 Responsive adjustments */
+  @media (max-width: 768px) {
+    .image-item img {
+      width: 220px;
+      height: 150px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .image-item img {
+      width: 180px;
+      height: 130px;
+    }
+  }
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: linear-gradient(135deg, #d9ecf2 0%, #c8e0e8 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Demo Content Area */
+  .demo-content {
+    flex: 1;
+    padding: 60px 20px;
+    text-align: center;
+  }
+
+  .demo-content h1 {
+    color: #1e3a4a;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .demo-content p {
+    color: #4a6c7d;
+    font-size: 1.1rem;
+  }
+
+  /* Footer Styles */
+  /* Footer Styles */
+  footer {
+    background: linear-gradient(135deg, #1e3a4a 0%, #2c4e5e 100%);
+    color: #ffffff;
+    padding: 50px 0 0 0;
+    margin-top: auto;
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
+    position: relative;
+  }
+
+  footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #d4a853, #f0c674, #d4a853);
+  }
+
+  .footer-content {
+    padding: 0 20px 30px;
+  }
+
+  .footer-brand {
+    margin-bottom: 30px;
+  }
+
+  .footer-brand h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+  }
+
+  .footer-brand p {
+    color: #b8d4df;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    max-width: 500px;
+  }
+
+  .footer-section {
+    margin-bottom: 30px;
+  }
+
+  .footer-section h4 {
+    color: #f0c674;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .contact-info {
+    list-style: none;
+    padding: 0;
+  }
+
+  .contact-info li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    color: #d4e6ed;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+  }
+
+  .contact-info li:hover {
+    color: #f0c674;
+    transform: translateX(5px);
+  }
+
+  .contact-info i {
+    min-width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(240, 198, 116, 0.15);
+    border-radius: 8px;
+    margin-right: 12px;
+    color: #f0c674;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+
+  .contact-info li:hover i {
+    background: rgba(240, 198, 116, 0.25);
+    transform: scale(1.1);
+  }
+
+  .contact-info a {
+    color: #d4e6ed;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .contact-info a:hover {
+    color: #f0c674;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .social-link {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+  }
+
+  .social-link:hover {
+    background: #f0c674;
+    color: #1e3a4a;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(240, 198, 116, 0.3);
+  }
+
+  .social-link.instagram:hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    color: #ffffff;
+  }
+
+  .footer-bottom {
+    background: rgba(0, 0, 0, 0.2);
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .footer-bottom p {
+    margin: 0;
+    color: #b8d4df;
+    font-size: 0.9rem;
+  }
+
+  .footer-bottom a {
+    color: #f0c674;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .footer-bottom a:hover {
+    color: #ffffff;
+  }
+
+  /* Quick Links */
+  .quick-links {
+    list-style: none;
+    padding: 0;
+  }
+
+  .quick-links li {
+    margin-bottom: 12px;
+  }
+
+  .quick-links a {
+    color: #d4e6ed;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    display: inline-block;
+    position: relative;
+  }
+
+  .quick-links a::before {
+    content: '→';
+    position: absolute;
+    left: -20px;
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+
+  .quick-links a:hover {
+    color: #f0c674;
+    padding-left: 20px;
+  }
+
+  .quick-links a:hover::before {
+    opacity: 1;
+    left: 0;
+  }
+
+  /* Responsive - Mobile First Approach */
+  @media (max-width: 991px) {
+    .demo-content h1 {
+      font-size: 2rem;
+    }
+
+    footer {
+      padding: 40px 0 0 0;
+    }
+
+    .footer-content .row {
+      gap: 20px 0;
+    }
+
+    /* Stack columns properly on tablet */
+    .col-lg-3,
+    .col-lg-4 {
+      width: 100%;
+      max-width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .demo-content h1 {
+      font-size: 1.75rem;
+    }
+
+    .demo-content p {
+      font-size: 1rem;
+    }
+
+    .footer-brand h2 {
+      font-size: 1.8rem;
+      text-align: center;
+    }
+
+    .footer-brand p {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    footer {
+      padding: 30px 0 0 0;
+    }
+
+    .footer-section {
+      text-align: center;
+    }
+
+    .footer-section h4 {
+      font-size: 1rem;
+      margin-bottom: 15px;
+    }
+
+    .social-links {
+      justify-content: center;
+    }
+
+    .contact-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .contact-info li {
+      justify-content: center;
+      text-align: center;
+      max-width: 280px;
+    }
+
+    .quick-links {
+      text-align: center;
+    }
+
+    .quick-links a::before {
+      display: none;
+    }
+
+    .quick-links a:hover {
+      padding-left: 0;
+    }
+
+    /* Footer bottom for mobile */
+    .footer-bottom p {
+      font-size: 0.85rem;
+    }
+
+    .footer-bottom .col-md-6 {
+      text-align: center !important;
+      margin-bottom: 10px;
+    }
+  }
+
+  /* Extra small mobile devices */
+  @media (max-width: 480px) {
+    .demo-content h1 {
+      font-size: 1.5rem;
+    }
+
+    .footer-brand h2 {
+      font-size: 1.5rem;
+    }
+
+    .footer-brand p {
+      font-size: 0.9rem;
+      padding: 0 10px;
+    }
+
+    .footer-section {
+      padding: 0 15px;
+    }
+
+    .social-link {
+      width: 40px;
+      height: 40px;
+      font-size: 1.1rem;
+    }
+
+    .contact-info i {
+      min-width: 30px;
+      height: 30px;
+      font-size: 0.9rem;
+    }
+
+    .contact-info li {
+      font-size: 0.9rem;
+      margin-bottom: 12px;
+    }
+
+    .quick-links a {
+      font-size: 0.9rem;
+    }
+
+    .footer-bottom {
+      padding: 15px 0;
+    }
+
+    .footer-bottom p {
+      font-size: 0.8rem;
+    }
+
+    footer {
+      padding: 25px 0 0 0;
+    }
+  }
+
+  /* Landscape mobile */
+  @media (max-width: 768px) and (orientation: landscape) {
+    footer {
+      padding: 25px 0 0 0;
+    }
+
+    .footer-section {
+      margin-bottom: 20px;
+    }
+  }
+
+  /* Animation for footer on scroll */
+  footer {
+    animation: slideUp 0.8s ease-out;
+  }
+
+  @keyframes slideUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .view-btn {
+    display: inline-block;
+    background: linear-gradient(135deg, #d4a853 0%, #f0c674 100%);
+    color: #0a2540;
+    font-weight: 700;
+    font-size: 1rem;
+    padding: 12px 30px;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(212, 168, 83, 0.3);
+    border: 2px solid transparent;
+  }
+
+  .view-btn:hover {
+    background: linear-gradient(135deg, #c29847 0%, #d4a853 100%);
+    color: #0a2540;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(212, 168, 83, 0.5);
+    border-color: #0a2540;
+  }
+
+  /* ===========================
+   WEBSITE CREATED BY SECTION
+=========================== */
+
+  .created-by {
+    margin: 15px 0;
+    padding: 15px 0;
+    border-top: 1px solid rgba(240, 198, 116, 0.2);
+    border-bottom: 1px solid rgba(240, 198, 116, 0.2);
+  }
+
+  .created-by-text {
+    font-size: 0.8rem;
+    color: #b8d4df;
+    margin-bottom: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .creator-links {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .creator-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #f0c674;
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    padding: 5px 0;
+  }
+
+  .creator-link:hover {
+    color: #ffffff;
+    transform: translateX(5px);
+  }
+
+  .creator-link i {
+    font-size: 1rem;
+    min-width: 20px;
+    text-align: center;
+  }
+
+  .creator-link span {
+    font-weight: 500;
+  }
+
+  /* Instagram gradient on hover */
+  .creator-link:has(.fa-instagram):hover {
+    background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Mobile responsive */
+  @media (max-width: 768px) {
+    .created-by {
+      text-align: center;
+    }
+
+    .creator-links {
+      align-items: center;
+    }
+
+    .creator-link {
+      justify-content: center;
+    }
+
+    .creator-link:hover {
+      transform: translateX(0) scale(1.05);
+    }
+  }
+
+  @media (max-width: 480px) {
+    .created-by-text {
+      font-size: 0.75rem;
+    }
+
+    .creator-link {
+      font-size: 0.8rem;
+    }
+
+    .creator-link i {
+      font-size: 0.9rem;
+    }
+  }
+</style>
+
+<!-- Top Hero Banner -->
+<section class="hero-banner" aria-label="main-banner" id="home">
+  <img src="{% static 'assets/images/Home.png' %}" alt="Pranessh Cars Banner" loading="eager">
+</section>
+
+
+<!-- Why Choose Us Section -->
+<section class="why-choose-us">
+  <div class="container">
+    <h2>Why Choose Us</h2>
+    <p class="subtitle">We make buying and selling cars effortless, transparent, and trustworthy.</p>
+
+    <div class="features">
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/992/992700.png" alt="Verified" />
+        <h3>Verified Listings</h3>
+        <p>Every car undergoes thorough checks to ensure it’s genuine, well-maintained, and ready to drive.</p>
+      </div>
+
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077976.png" alt="Transparency" />
+        <h3>Transparent Process</h3>
+        <p>No hidden costs, no middlemen — just clear information and honest pricing every step of the way.</p>
+      </div>
+
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" alt="Support" />
+        <h3>Expert Support</h3>
+        <p>Our team assists you in choosing the right car, arranging finance, and completing your purchase smoothly.</p>
+      </div>
+
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/1076/1076998.png" alt="Quick Service" />
+        <h3>Quick & Reliable</h3>
+        <p>Fast response, easy documentation, and instant updates — experience the modern way of car dealing.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY HEADING -->
+<div class="container text-center my-5" id="carsection">
+  <h2 class="section-heading">Cars</h2>
+</div>
+
+<!-- GALLERY -->
+<section class="gallery-wrapper" aria-label="car-gallery">
+  {% for car in all_cars %}
+  <article class="car-card" aria-labelledby="car-title-{{ forloop.counter }}">
+    <div class="image-gallery">
+      {% if car.picture1 %}
+      <div class="image-item"><img src="{{ car.picture1.url }}" alt="Car photo 1" loading="lazy"></div>
+      {% endif %}
+      {% if car.picture2 %}
+      <div class="image-item"><img src="{{ car.picture2.url }}" alt="Car photo 2" loading="lazy"></div>
+      {% endif %}
+      {% if car.picture3 %}
+      <div class="image-item"><img src="{{ car.picture3.url }}" alt="Car photo 3" loading="lazy"></div>
+      {% endif %}
+      {% if car.picture4 %}
+      <div class="image-item"><img src="{{ car.picture4.url }}" alt="Car photo 4" loading="lazy"></div>
+      {% endif %}
+      {% if car.picture5 %}
+      <div class="image-item"><img src="{{ car.picture5.url }}" alt="Car photo 5" loading="lazy"></div>
+      {% endif %}
+    </div>
+    <div class="car-details">
+      <h3 id="car-title-{{ forloop.counter }}">{{ car.vehicle|default:"Unnamed Vehicle" }}</h3>
+      <div class="car-meta">
+        {% if car.fuel_type %}<div>Fuel: {{ car.fuel_type }}</div>{% endif %}
+        {% if car.model %}<div>Model: {{ car.model }}</div>{% endif %}
+        {% if car.color %}<div>Color: {{ car.color }}</div>{% endif %}
+      </div>
+      <a class="view-btn" href="{% url 'car-detail' car.pk %}">View Details</a>
+    </div>
+  </article>
+  {% endfor %}
+</section>
+<!-- Demo Content Area (Your actual page content would go here) -->
+<div class="demo-content">
+  <div class="container">
+    <h1>Find Your Perfect Car</h1>
+    <p>Trusted, Tested &amp; Transparent</p>
+  </div>
+</div>
+
+<<!-- Professional Footer -->
+  <footer>
+    <div class="container footer-content">
+      <div class="row justify-content-between">
+        <!-- Company Brand & Description -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="footer-brand">
+            <h2>Pranessh Cars</h2>
+            <p class="mt-3">Discover a curated range of quality pre-owned vehicles. Each car is carefully inspected,
+              fully verified,
+              and ready for your next drive.</p>
+            <!-- Website Created By Section -->
+            <div class="created-by">
+              <p class="created-by-text">Website created by</p>
+              <div class="creator-links">
+                <a href="mailto:sriroshanro8@gmail.com" class="creator-link" aria-label="Email developer">
+                  <i class="fas fa-envelope"></i>
+                  <span>sriroshanro8@gmail.com</span>
+                </a>
+                <a href="https://www.instagram.com/rosh_an_81/" target="_blank" rel="noopener noreferrer"
+                  class="creator-link" aria-label="Instagram">
+                  <i class="fab fa-instagram"></i>
+                  <span>rosh_an_81</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="col-lg-3 col-md-6 mb-4">
+          <div class="footer-section">
+            <h4>Quick Links</h4>
+            <ul class="quick-links">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#carsection">Inventory</a></li>
+              <li><a href="{% url 'contact' %}">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Contact Info & Social -->
+        <div class="col-lg-4 col-md-12 mb-4">
+          <div class="footer-section">
+            <h4>Get In Touch</h4>
+            <ul class="contact-info">
+              <li>
+                <i class="fas fa-phone"></i>
+                <a href="tel:+919791868002">+91 97918 68002</a>
+              </li>
+              <li>
+                <i class="fas fa-envelope"></i>
+                <a href="mailto:Creativekishore1@gmail.com">Creativekishore1@gmail.com</a>
+              </li>
+              <li>
+                <i class="fas fa-map-marker-alt"></i>
+                <span>54F, Pandurangan Street, Tuticorin</span>
+              </li>
+            </ul>
+
+            <h4 class="mt-4">Follow Us</h4>
+            <div class="social-links">
+              <a href="https://www.instagram.com/pranessh_cars/" target="_blank" rel="noopener noreferrer"
+                class="social-link instagram" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="https://twitter.com/yourcompany" target="_blank" rel="noopener noreferrer" class="social-link"
+                aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+            <p>&copy; 2025 Pranessh Cars. All rights reserved.</p>
+          </div>
+          <div class="col-md-6 text-center text-md-end">
+            <p>
+              <a href="#privacy">Privacy Policy</a> |
+              <a href="#terms">Terms of Service</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS Bundle -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Custom JavaScript -->
+  <script>
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Add animation on scroll
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe footer sections
+    document.querySelectorAll('.footer-section').forEach(section => {
+      section.style.opacity = '0';
+      section.style.transform = 'translateY(20px)';
+      section.style.transition = 'all 0.6s ease-out';
+      observer.observe(section);
+    });
+
+    // Phone number click tracking (optional)
+    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+      link.addEventListener('click', function () {
+        console.log('Phone number clicked:', this.getAttribute('href'));
+        // You can add analytics tracking here
+      });
+    });
+
+    // Social media click tracking (optional)
+    document.querySelectorAll('.social-link').forEach(link => {
+      link.addEventListener('click', function () {
+        console.log('Social media link clicked:', this.getAttribute('href'));
+        // You can add analytics tracking here
+      });
+    });
+
+    // Add ripple effect to buttons and links
+    function createRipple(event) {
+      const button = event.currentTarget;
+      const ripple = document.createElement('span');
+      const rect = button.getBoundingClientRect();
+      const size = Math.max(rect.width, rect.height);
+      const x = event.clientX - rect.left - size / 2;
+      const y = event.clientY - rect.top - size / 2;
+
+      ripple.style.width = ripple.style.height = size + 'px';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      ripple.classList.add('ripple');
+
+      button.appendChild(ripple);
+
+      setTimeout(() => {
+        ripple.remove();
+      }, 600);
+    }
+
+    document.querySelectorAll('.social-link').forEach(link => {
+      link.addEventListener('click', createRipple);
+    });
+
+    // Current year update
+    const currentYear = new Date().getFullYear();
+    const footerText = document.querySelector('.footer-bottom p');
+    if (footerText) {
+      footerText.textContent = `© ${currentYear} Pranessh Cars. All rights reserved.`;
+    }
+  </script>
+
+  {% endblock %}

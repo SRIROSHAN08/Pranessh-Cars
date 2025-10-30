@@ -1,0 +1,608 @@
+{% extends 'navbar.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+    /* ----------- BACK BUTTON ----------- */
+    .back-button-container {
+        max-width: 1150px;
+        margin: 20px auto 0;
+        padding: 0 24px;
+    }
+
+    .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 20px;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: #ffffff;
+        font-weight: 600;
+        font-size: 0.95rem;
+        border: none;
+        border-radius: 10px;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+        cursor: pointer;
+    }
+
+    .back-btn:hover {
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.3);
+    }
+
+    .back-btn i {
+        font-size: 1.1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .back-btn:hover i {
+        transform: translateX(-3px);
+    }
+
+    /* ----------- PAGE CONTAINER ----------- */
+    .car-details-container {
+        max-width: 1150px;
+        margin: 20px auto 40px;
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0px 6px 28px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+    /* ----------- IMAGE GALLERY SCROLL ----------- */
+    .image-scroll {
+        position: relative;
+        overflow: hidden;
+        background: #f3f7fa;
+    }
+
+    .image-track {
+        display: flex;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        gap: 12px;
+        padding: 16px;
+    }
+
+    .image-track::-webkit-scrollbar {
+        height: 10px;
+    }
+
+    .image-track::-webkit-scrollbar-thumb {
+        background-color: #d0d0d0;
+        border-radius: 10px;
+    }
+
+    .image-item img {
+        width: 320px;
+        height: 200px;
+        border-radius: 12px;
+        object-fit: cover;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        border: 2px solid #eee;
+    }
+
+    .image-item img:hover {
+        transform: scale(1.04);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .scroll-btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        font-size: 28px;
+        width: 46px;
+        height: 46px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+        z-index: 5;
+        transition: all 0.3s ease;
+    }
+
+    .scroll-btn:hover {
+        background: #0078ff;
+        color: white;
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .scroll-btn.left {
+        left: 10px;
+    }
+
+    .scroll-btn.right {
+        right: 10px;
+    }
+
+    /* ----------- IMAGE LIGHTBOX ----------- */
+    .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .lightbox.active {
+        display: flex;
+    }
+
+    .lightbox-content {
+        position: relative;
+        max-width: 90%;
+        max-height: 90%;
+        animation: zoomIn 0.3s ease;
+    }
+
+    .lightbox-content img {
+        width: 100%;
+        height: auto;
+        max-height: 90vh;
+        object-fit: contain;
+        border-radius: 8px;
+    }
+
+    .lightbox-close {
+        position: absolute;
+        top: -50px;
+        right: 0;
+        font-size: 40px;
+        color: white;
+        background: none;
+        border: none;
+        cursor: pointer;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+    }
+
+    .lightbox-close:hover {
+        transform: scale(1.2) rotate(90deg);
+    }
+
+    .lightbox-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        border: 2px solid rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        font-size: 24px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        z-index: 10000;
+    }
+
+    .lightbox-nav:hover {
+        background: rgba(255, 255, 255, 0.4);
+        transform: translateY(-50%) scale(1.1);
+    }
+
+    .lightbox-nav.prev {
+        left: 20px;
+    }
+
+    .lightbox-nav.next {
+        right: 20px;
+    }
+
+    .lightbox-counter {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes zoomIn {
+        from {
+            transform: scale(0.8);
+            opacity: 0;
+        }
+
+        to {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* ----------- DETAILS SECTION ----------- */
+    .car-info {
+        padding: 32px 24px;
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+    }
+
+    .car-main-details h2 {
+        color: #0a2540;
+        margin-bottom: 12px;
+        font-size: 1.8rem;
+    }
+
+    .car-main-details p {
+        color: #444;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin-bottom: 8px;
+    }
+
+    .car-price-box {
+        background: #f2f8ff;
+        padding: 22px;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    }
+
+    .car-price-box h3 {
+        color: #0078ff;
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+
+    .car-price-box span {
+        color: #4a5568;
+        font-size: 1rem;
+    }
+
+    /* ----------- SPECIFICATIONS GRID ----------- */
+    .specs {
+        background: #fafbfd;
+        border-top: 1px solid #e0e6ed;
+        padding: 28px;
+    }
+
+    .specs h3 {
+        color: #0a2540;
+        margin-bottom: 18px;
+    }
+
+    .spec-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 14px;
+    }
+
+    .spec-item {
+        background: white;
+        padding: 14px 18px;
+        border-radius: 8px;
+        box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
+        border-left: 4px solid #0078ff;
+    }
+
+    .spec-item strong {
+        display: block;
+        color: #0a2540;
+        font-weight: 600;
+    }
+
+    .spec-item span {
+        color: #555;
+    }
+
+    /* ----------- DESCRIPTION ----------- */
+    .description {
+        padding: 28px;
+    }
+
+    .description h3 {
+        color: #0a2540;
+        margin-bottom: 10px;
+    }
+
+    .description p {
+        color: #444;
+        line-height: 1.7;
+    }
+
+    /* ----------- BOOKING BUTTON ----------- */
+    .section-heading {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #0a2540;
+        margin-bottom: 20px;
+    }
+
+    .booking-btn {
+        display: inline-block;
+        padding: 14px 40px;
+        font-size: 1.1rem;
+        background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+        color: #fff;
+        font-weight: 600;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+    }
+
+    .booking-btn:hover {
+        background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
+        color: #fff;
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(37, 99, 235, 0.35);
+    }
+
+    /* ----------- MOBILE VIEW ----------- */
+    @media (max-width: 900px) {
+        .car-info {
+            grid-template-columns: 1fr;
+        }
+
+        .lightbox-content {
+            max-width: 95%;
+        }
+
+        .lightbox-nav {
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+        }
+
+        .lightbox-nav.prev {
+            left: 10px;
+        }
+
+        .lightbox-nav.next {
+            right: 10px;
+        }
+
+        .lightbox-close {
+            top: -40px;
+            font-size: 32px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .back-button-container {
+            padding: 0 16px;
+        }
+
+        .back-btn {
+            font-size: 0.9rem;
+            padding: 8px 16px;
+        }
+
+        .car-details-container {
+            margin: 15px auto 30px;
+            border-radius: 12px;
+        }
+    }
+</style>
+
+<!-- BACK BUTTON -->
+<div class="back-button-container">
+    <a href="{% url 'homepage' %}" class="back-btn">
+        <i class="bi bi-arrow-left"></i>
+        Back to Inventory
+    </a>
+</div>
+
+<div class="car-details-container">
+    <!-- IMAGE SCROLL GALLERY -->
+    <div class="image-scroll">
+        <button class="scroll-btn left">&#10094;</button>
+        <div class="image-track" id="imageTrack">
+            {% if car.picture1 %}<div class="image-item"><img src="{{ car.picture1.url }}" alt="Car photo 1"
+                    loading="lazy" data-index="0"></div>{% endif %}
+            {% if car.picture2 %}<div class="image-item"><img src="{{ car.picture2.url }}" alt="Car photo 2"
+                    loading="lazy" data-index="1"></div>{% endif %}
+            {% if car.picture3 %}<div class="image-item"><img src="{{ car.picture3.url }}" alt="Car photo 3"
+                    loading="lazy" data-index="2"></div>{% endif %}
+            {% if car.picture4 %}<div class="image-item"><img src="{{ car.picture4.url }}" alt="Car photo 4"
+                    loading="lazy" data-index="3"></div>{% endif %}
+            {% if car.picture5 %}<div class="image-item"><img src="{{ car.picture5.url }}" alt="Car photo 5"
+                    loading="lazy" data-index="4"></div>{% endif %}
+            {% if car.picture6 %}<div class="image-item"><img src="{{ car.picture6.url }}" alt="Car photo 6"
+                    loading="lazy" data-index="5"></div>{% endif %}
+            {% if car.picture7 %}<div class="image-item"><img src="{{ car.picture7.url }}" alt="Car photo 7"
+                    loading="lazy" data-index="6"></div>{% endif %}
+            {% if car.picture8 %}<div class="image-item"><img src="{{ car.picture8.url }}" alt="Car photo 8"
+                    loading="lazy" data-index="7"></div>{% endif %}
+            {% if car.picture9 %}<div class="image-item"><img src="{{ car.picture9.url }}" alt="Car photo 9"
+                    loading="lazy" data-index="8"></div>{% endif %}
+            {% if car.picture10 %}<div class="image-item"><img src="{{ car.picture10.url }}" alt="Car photo 10"
+                    loading="lazy" data-index="9"></div>{% endif %}
+            {% if car.picture11 %}<div class="image-item"><img src="{{ car.picture11.url }}" alt="Car photo 11"
+                    loading="lazy" data-index="10"></div>{% endif %}
+            {% if car.picture12 %}<div class="image-item"><img src="{{ car.picture12.url }}" alt="Car photo 12"
+                    loading="lazy" data-index="11"></div>{% endif %}
+            {% if car.picture13 %}<div class="image-item"><img src="{{ car.picture13.url }}" alt="Car photo 13"
+                    loading="lazy" data-index="12"></div>{% endif %}
+            {% if car.picture14 %}<div class="image-item"><img src="{{ car.picture14.url }}" alt="Car photo 14"
+                    loading="lazy" data-index="13"></div>{% endif %}
+            {% if car.picture15 %}<div class="image-item"><img src="{{ car.picture15.url }}" alt="Car photo 15"
+                    loading="lazy" data-index="14"></div>{% endif %}
+        </div>
+        <button class="scroll-btn right">&#10095;</button>
+    </div>
+
+    <!-- MAIN INFO -->
+    <div class="car-info">
+        <div class="car-main-details">
+            <h2>{{ car.car_name }}</h2>
+            <p><strong>Model Year:</strong> {{ car.model_year }}</p>
+            <p><strong>Vehicle Type:</strong> {{ car.vehicle }}</p>
+            <p><strong>Fuel Type:</strong> {{ car.fuel_type }}</p>
+            <p><strong>Transmission:</strong> {{ car.gear }}</p>
+            <p><strong>Owner:</strong> {{ car.owner }}</p>
+            <p><strong>Color:</strong> {{ car.color }}</p>
+            <p><strong>Seats:</strong> {{ car.seats }}</p>
+            <p><strong>Insurance:</strong> {{ car.insurance }}</p>
+        </div>
+
+        <div class="car-price-box">
+            <h3>₹ {{ car.price|floatformat:0 }}</h3>
+            <span>Price (Approx.)</span>
+        </div>
+    </div>
+
+    <!-- SPECIFICATIONS GRID -->
+    <div class="specs">
+        <h3>Specifications</h3>
+        <div class="spec-grid">
+            <div class="spec-item"><strong>Model</strong><span>{{ car.model }}</span></div>
+            <div class="spec-item"><strong>Fuel Type</strong><span>{{ car.fuel_type }}</span></div>
+            <div class="spec-item"><strong>Transmission</strong><span>{{ car.gear }}</span></div>
+            <div class="spec-item"><strong>KM Driven</strong><span>{{ car.km }} km</span></div>
+            <div class="spec-item"><strong>Seats</strong><span>{{ car.seats }}</span></div>
+            <div class="spec-item"><strong>Color</strong><span>{{ car.color }}</span></div>
+            <div class="spec-item"><strong>Insurance</strong><span>{{ car.insurance }}</span></div>
+            <div class="spec-item"><strong>Owner</strong><span>{{ car.owner }}</span></div>
+        </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="description">
+        <h3>About this Vehicle</h3>
+        <p>{{ car.description }}</p>
+    </div>
+
+    <div class="container text-center my-5">
+        <h2 class="section-heading">For Booking</h2>
+        <a class="booking-btn btn btn-primary" href="{% url 'contact' %}">Contact us</a>
+    </div>
+</div>
+
+<!-- IMAGE LIGHTBOX -->
+<div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <button class="lightbox-nav prev" onclick="changeImage(-1)">&#10094;</button>
+    <div class="lightbox-content">
+        <img id="lightboxImg" src="" alt="Car image fullscreen">
+    </div>
+    <button class="lightbox-nav next" onclick="changeImage(1)">&#10095;</button>
+    <div class="lightbox-counter" id="imageCounter">1 / 1</div>
+</div>
+
+<script>
+    // Gallery scroll buttons
+    const track = document.getElementById('imageTrack');
+    document.querySelector('.scroll-btn.left').addEventListener('click', () => {
+        track.scrollBy({ left: -350, behavior: 'smooth' });
+    });
+    document.querySelector('.scroll-btn.right').addEventListener('click', () => {
+        track.scrollBy({ left: 350, behavior: 'smooth' });
+    });
+
+    // Lightbox functionality
+    let currentImageIndex = 0;
+    let allImages = [];
+
+    // Collect all images
+    document.addEventListener('DOMContentLoaded', function () {
+        const imageElements = document.querySelectorAll('.image-item img');
+        allImages = Array.from(imageElements).map(img => img.src);
+
+        // Add click event to each image
+        imageElements.forEach((img, index) => {
+            img.addEventListener('click', function () {
+                openLightbox(index);
+            });
+        });
+    });
+
+    function openLightbox(index) {
+        currentImageIndex = index;
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+
+        lightboxImg.src = allImages[currentImageIndex];
+        lightbox.classList.add('active');
+        updateCounter();
+
+        // Prevent body scroll when lightbox is open
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        const lightbox = document.getElementById('lightbox');
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+    }
+
+    function changeImage(direction) {
+        currentImageIndex += direction;
+
+        // Loop around
+        if (currentImageIndex >= allImages.length) {
+            currentImageIndex = 0;
+        } else if (currentImageIndex < 0) {
+            currentImageIndex = allImages.length - 1;
+        }
+
+        const lightboxImg = document.getElementById('lightboxImg');
+        lightboxImg.src = allImages[currentImageIndex];
+        updateCounter();
+    }
+
+    function updateCounter() {
+        const counter = document.getElementById('imageCounter');
+        counter.textContent = `${currentImageIndex + 1} / ${allImages.length}`;
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', function (e) {
+        const lightbox = document.getElementById('lightbox');
+        if (lightbox.classList.contains('active')) {
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                changeImage(-1);
+            } else if (e.key === 'ArrowRight') {
+                changeImage(1);
+            }
+        }
+    });
+
+    // Close lightbox when clicking outside image
+    document.getElementById('lightbox').addEventListener('click', function (e) {
+        if (e.target === this) {
+            closeLightbox();
+        }
+    });
+</script>
+{% endblock %}
