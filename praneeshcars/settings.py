@@ -1,13 +1,11 @@
 import os
 from pathlib import Path
 from environ import Env
-env =Env()
+import dj_database_url
 
-
+env=Env()
 
 ENVIRONMENT =env('ENVIRONMENT' , default='production')
-
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,6 +32,7 @@ INSTALLED_APPS = [
     'django_bootstrap5',
     'cardetails',
 ]
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -78,6 +77,20 @@ DATABASES = {
     }
 }
 
+POSTGRES_LOCALLY = False
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+    DATABASES['default']=dj_database_url.parse(env('DATABASE_URL'))
+else:
+    DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'praneeshcars',
+        'USER' :'root',
+        'PASSWORD':'Roshan@08',
+        'HOST':'localhost',
+        'PORT' :3306
+    }
+}
 
 
 AUTH_PASSWORD_VALIDATORS = [
