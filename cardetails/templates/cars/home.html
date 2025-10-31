@@ -178,20 +178,26 @@
   .gallery-wrapper {
     width: min(1200px, 96%);
     margin: 28px auto;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    display: flex;
+    /* single-column stack */
+    flex-direction: column;
     gap: 26px;
+    align-items: stretch;
+    /* each card will stretch to the container width */
+    box-sizing: border-box;
   }
 
   .car-card {
     background: var(--card-bg);
     border-radius: var(--radius);
     box-shadow: 0 10px 30px rgba(13, 40, 74, 0.06);
-    padding: 18px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+    padding: 22px;
+    display: block;
+    /* allow internal layout as you already have */
     overflow: hidden;
+    width: 100%;
+    /* ensure full width */
+    box-sizing: border-box;
   }
 
   .carousel {
@@ -913,6 +919,16 @@
       font-size: 0.9rem;
     }
   }
+
+  @media (max-width: 640px) {
+    .gallery-wrapper {
+      gap: 18px;
+    }
+
+    .car-card {
+      padding: 16px;
+    }
+  }
 </style>
 
 <!-- Top Hero Banner -->
@@ -920,40 +936,13 @@
   <img src="{% static 'assets/images/Home.png' %}" alt="Pranessh Cars Banner" loading="eager">
 </section>
 
-
-<!-- Why Choose Us Section -->
-<section class="why-choose-us">
+<!-- Demo Content Area (Your actual page content would go here) -->
+<div class="demo-content">
   <div class="container">
-    <h2>Why Choose Us</h2>
-    <p class="subtitle">We make buying and selling cars effortless, transparent, and trustworthy.</p>
-
-    <div class="features">
-      <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/512/992/992700.png" alt="Verified" />
-        <h3>Verified Listings</h3>
-        <p>Every car undergoes thorough checks to ensure it’s genuine, well-maintained, and ready to drive.</p>
-      </div>
-
-      <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077976.png" alt="Transparency" />
-        <h3>Transparent Process</h3>
-        <p>No hidden costs, no middlemen — just clear information and honest pricing every step of the way.</p>
-      </div>
-
-      <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" alt="Support" />
-        <h3>Expert Support</h3>
-        <p>Our team assists you in choosing the right car, arranging finance, and completing your purchase smoothly.</p>
-      </div>
-
-      <div class="feature">
-        <img src="https://cdn-icons-png.flaticon.com/512/1076/1076998.png" alt="Quick Service" />
-        <h3>Quick & Reliable</h3>
-        <p>Fast response, easy documentation, and instant updates — experience the modern way of car dealing.</p>
-      </div>
-    </div>
+    <h1>Find Your Perfect Car</h1>
+    <p>Trusted, Tested &amp; Transparent</p>
   </div>
-</section>
+</div>
 
 <!-- GALLERY HEADING -->
 <div class="container text-center my-5" id="carsection">
@@ -993,197 +982,224 @@
   </article>
   {% endfor %}
 </section>
-<!-- Demo Content Area (Your actual page content would go here) -->
-<div class="demo-content">
+<!-- Why Choose Us Section -->
+<section class="why-choose-us">
   <div class="container">
-    <h1>Find Your Perfect Car</h1>
-    <p>Trusted, Tested &amp; Transparent</p>
+    <h2>Why Choose Us</h2>
+    <p class="subtitle">We make buying and selling cars effortless, transparent, and trustworthy.</p>
+
+    <div class="features">
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/992/992700.png" alt="Verified" />
+        <h3>Verified Listings</h3>
+        <p>Every car undergoes thorough checks to ensure it’s genuine, well-maintained, and ready to drive.</p>
+      </div>
+
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/1077/1077976.png" alt="Transparency" />
+        <h3>Transparent Process</h3>
+        <p>No hidden costs, no middlemen — just clear information and honest pricing every step of the way.</p>
+      </div>
+
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/992/992651.png" alt="Support" />
+        <h3>Expert Support</h3>
+        <p>Our team assists you in choosing the right car, arranging finance, and completing your purchase smoothly.</p>
+      </div>
+
+      <div class="feature">
+        <img src="https://cdn-icons-png.flaticon.com/512/1076/1076998.png" alt="Quick Service" />
+        <h3>Quick & Reliable</h3>
+        <p>Fast response, easy documentation, and instant updates — experience the modern way of car dealing.</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<<!-- Professional Footer -->
-  <footer>
-    <div class="container footer-content">
-      <div class="row justify-content-between">
-        <!-- Company Brand & Description -->
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="footer-brand">
-            <h2>Pranessh Cars</h2>
-            <p class="mt-3">Discover a curated range of quality pre-owned vehicles. Each car is carefully inspected,
-              fully verified,
-              and ready for your next drive.</p>
-            <!-- Website Created By Section -->
-            <div class="created-by">
-              <p class="created-by-text">Website created by</p>
-              <div class="creator-links">
-                <a href="mailto:sriroshanro8@gmail.com" class="creator-link" aria-label="Email developer">
-                  <i class="fas fa-envelope"></i>
-                  <span>sriroshanro8@gmail.com</span>
-                </a>
-                <a href="https://www.instagram.com/rosh_an_81/" target="_blank" rel="noopener noreferrer"
-                  class="creator-link" aria-label="Instagram">
-                  <i class="fab fa-instagram"></i>
-                  <span>rosh_an_81</span>
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <!-- Quick Links -->
-        <div class="col-lg-3 col-md-6 mb-4">
-          <div class="footer-section">
-            <h4>Quick Links</h4>
-            <ul class="quick-links">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#carsection">Inventory</a></li>
-              <li><a href="{% url 'contact' %}">Contact</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Contact Info & Social -->
-        <div class="col-lg-4 col-md-12 mb-4">
-          <div class="footer-section">
-            <h4>Get In Touch</h4>
-            <ul class="contact-info">
-              <li>
-                <i class="fas fa-phone"></i>
-                <a href="tel:+919791868002">+91 97918 68002</a>
-              </li>
-              <li>
+<!-- Professional Footer -->
+<footer>
+  <div class="container footer-content">
+    <div class="row justify-content-between">
+      <!-- Company Brand & Description -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="footer-brand">
+          <h2>Pranessh Cars</h2>
+          <p class="mt-3">Discover a curated range of quality pre-owned vehicles. Each car is carefully inspected,
+            fully verified,
+            and ready for your next drive.</p>
+          <!-- Website Created By Section -->
+          <div class="created-by">
+            <p class="created-by-text">Website created by</p>
+            <div class="creator-links">
+              <a href="mailto:sriroshanro8@gmail.com" class="creator-link" aria-label="Email developer">
                 <i class="fas fa-envelope"></i>
-                <a href="mailto:Creativekishore1@gmail.com">Creativekishore1@gmail.com</a>
-              </li>
-              <li>
-                <i class="fas fa-map-marker-alt"></i>
-                <span>54F, Pandurangan Street, Tuticorin</span>
-              </li>
-            </ul>
-
-            <h4 class="mt-4">Follow Us</h4>
-            <div class="social-links">
-              <a href="https://www.instagram.com/pranessh_cars/" target="_blank" rel="noopener noreferrer"
-                class="social-link instagram" aria-label="Instagram">
-                <i class="fab fa-instagram"></i>
+                <span>sriroshanro8@gmail.com</span>
               </a>
-              <a href="https://twitter.com/yourcompany" target="_blank" rel="noopener noreferrer" class="social-link"
-                aria-label="Twitter">
-                <i class="fab fa-twitter"></i>
+              <a href="https://www.instagram.com/rosh_an_81/" target="_blank" rel="noopener noreferrer"
+                class="creator-link" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+                <span>rosh_an_81</span>
               </a>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Footer Bottom -->
-    <div class="footer-bottom">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
-            <p>&copy; 2025 Pranessh Cars. All rights reserved.</p>
-          </div>
-          <div class="col-md-6 text-center text-md-end">
-            <p>
-              <a href="#privacy">Privacy Policy</a> |
-              <a href="#terms">Terms of Service</a>
-            </p>
+      <!-- Quick Links -->
+      <div class="col-lg-3 col-md-6 mb-4">
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <ul class="quick-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#carsection">Inventory</a></li>
+            <li><a href="{% url 'contact' %}">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Contact Info & Social -->
+      <div class="col-lg-4 col-md-12 mb-4">
+        <div class="footer-section">
+          <h4>Get In Touch</h4>
+          <ul class="contact-info">
+            <li>
+              <i class="fas fa-phone"></i>
+              <a href="tel:+919791868002">+91 97918 68002</a>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:Creativekishore1@gmail.com">Creativekishore1@gmail.com</a>
+            </li>
+            <li>
+              <i class="fas fa-map-marker-alt"></i>
+              <span>54F, Pandurangan Street, Tuticorin</span>
+            </li>
+          </ul>
+
+          <h4 class="mt-4">Follow Us</h4>
+          <div class="social-links">
+            <a href="https://www.instagram.com/pranessh_cars/" target="_blank" rel="noopener noreferrer"
+              class="social-link instagram" aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://twitter.com/yourcompany" target="_blank" rel="noopener noreferrer" class="social-link"
+              aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
           </div>
         </div>
       </div>
     </div>
-  </footer>
+  </div>
 
-  <!-- Bootstrap JS Bundle -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Footer Bottom -->
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start mb-2 mb-md-0">
+          <p>&copy; 2025 Pranessh Cars. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <p>
+            <a href="#privacy">Privacy Policy</a> |
+            <a href="#terms">Terms of Service</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
 
-  <!-- Custom JavaScript -->
-  <script>
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
-        }
-      });
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- Custom JavaScript -->
+<script>
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
+        });
+      }
     });
+  });
 
-    // Add animation on scroll
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    };
+  // Add animation on scroll
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-        }
-      });
-    }, observerOptions);
-
-    // Observe footer sections
-    document.querySelectorAll('.footer-section').forEach(section => {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(20px)';
-      section.style.transition = 'all 0.6s ease-out';
-      observer.observe(section);
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
     });
+  }, observerOptions);
 
-    // Phone number click tracking (optional)
-    document.querySelectorAll('a[href^="tel:"]').forEach(link => {
-      link.addEventListener('click', function () {
-        console.log('Phone number clicked:', this.getAttribute('href'));
-        // You can add analytics tracking here
-      });
+  // Observe footer sections
+  document.querySelectorAll('.footer-section').forEach(section => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(20px)';
+    section.style.transition = 'all 0.6s ease-out';
+    observer.observe(section);
+  });
+
+  // Phone number click tracking (optional)
+  document.querySelectorAll('a[href^="tel:"]').forEach(link => {
+    link.addEventListener('click', function () {
+      console.log('Phone number clicked:', this.getAttribute('href'));
+      // You can add analytics tracking here
     });
+  });
 
-    // Social media click tracking (optional)
-    document.querySelectorAll('.social-link').forEach(link => {
-      link.addEventListener('click', function () {
-        console.log('Social media link clicked:', this.getAttribute('href'));
-        // You can add analytics tracking here
-      });
+  // Social media click tracking (optional)
+  document.querySelectorAll('.social-link').forEach(link => {
+    link.addEventListener('click', function () {
+      console.log('Social media link clicked:', this.getAttribute('href'));
+      // You can add analytics tracking here
     });
+  });
 
-    // Add ripple effect to buttons and links
-    function createRipple(event) {
-      const button = event.currentTarget;
-      const ripple = document.createElement('span');
-      const rect = button.getBoundingClientRect();
-      const size = Math.max(rect.width, rect.height);
-      const x = event.clientX - rect.left - size / 2;
-      const y = event.clientY - rect.top - size / 2;
+  // Add ripple effect to buttons and links
+  function createRipple(event) {
+    const button = event.currentTarget;
+    const ripple = document.createElement('span');
+    const rect = button.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = event.clientX - rect.left - size / 2;
+    const y = event.clientY - rect.top - size / 2;
 
-      ripple.style.width = ripple.style.height = size + 'px';
-      ripple.style.left = x + 'px';
-      ripple.style.top = y + 'px';
-      ripple.classList.add('ripple');
+    ripple.style.width = ripple.style.height = size + 'px';
+    ripple.style.left = x + 'px';
+    ripple.style.top = y + 'px';
+    ripple.classList.add('ripple');
 
-      button.appendChild(ripple);
+    button.appendChild(ripple);
 
-      setTimeout(() => {
-        ripple.remove();
-      }, 600);
-    }
+    setTimeout(() => {
+      ripple.remove();
+    }, 600);
+  }
 
-    document.querySelectorAll('.social-link').forEach(link => {
-      link.addEventListener('click', createRipple);
-    });
+  document.querySelectorAll('.social-link').forEach(link => {
+    link.addEventListener('click', createRipple);
+  });
 
-    // Current year update
-    const currentYear = new Date().getFullYear();
-    const footerText = document.querySelector('.footer-bottom p');
-    if (footerText) {
-      footerText.textContent = `© ${currentYear} Pranessh Cars. All rights reserved.`;
-    }
-  </script>
+  // Current year update
+  const currentYear = new Date().getFullYear();
+  const footerText = document.querySelector('.footer-bottom p');
+  if (footerText) {
+    footerText.textContent = `© ${currentYear} Pranessh Cars. All rights reserved.`;
+  }
+</script>
 
-  {% endblock %}
+{% endblock %}
