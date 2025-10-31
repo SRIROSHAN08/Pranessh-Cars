@@ -30,7 +30,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'cloudinary_storage',
+    'cloudinary',
     'cardetails',
+    
 ]
 
 
@@ -77,7 +80,7 @@ DATABASES = {
     }
 }
 
-POSTGRES_LOCALLY = False
+POSTGRES_LOCALLY = True
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
     DATABASES['default']=dj_database_url.parse(env('DATABASE_URL'))
 else:
@@ -129,7 +132,28 @@ STATIC_ROOT =BASE_DIR/'staticfiles'
 
 
 
-MEDIA_ROOT = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR,'static/media')
+MEDIA_URL = '/media/'
+
+
+if ENVIRONMENT == 'production' or POSTGRES_LOCALLY == True:
+    STORAGES = {
+    "default": {
+        "BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+    }
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR,'static/media')
+
+CLOUDINARY_STORAGE = {
+   'CLOUD_NAME': env('CLOUD_NAME'),
+   'API_KEY': env('CLOUD_API_KEY'),
+   'API_SECRET': env('CLOUD_API_SECRET')
+}
+
+
+
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
