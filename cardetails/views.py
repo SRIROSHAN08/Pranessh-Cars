@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views import View
 from django.views.generic.detail import DetailView
 from .models import *
+from django.contrib import messages
 
 class AllCarsView(View):
     
@@ -25,6 +26,8 @@ def ContactView(request):
         form = Contact_form(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request,'Submitted successfully')
+            return redirect('contact')
     else:
         form = Contact_form()
 
