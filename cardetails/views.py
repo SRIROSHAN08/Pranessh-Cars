@@ -26,7 +26,7 @@ def ContactView(request):
         form = Contact_form(request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request,'Our team will contact you!')
+            messages.success(request,'Our team will contact you! Thank You')
             return redirect('contact')
     else:
         form = Contact_form()
